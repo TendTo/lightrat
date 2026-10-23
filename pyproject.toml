@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lightrat"
+readme = "README.md"
+authors = [
+    { name = "Ernesto Casablanca", email = "casablancaernesto@gmail.com" },
+]
+maintainers = [
+    { name = "Ernesto Casablanca", email = "casablancaernesto@gmail.com" },
+]
+license-files = ["LICEN[CS]E*"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Typing :: Typed",
+]
+keywords = ["LP", "linear programming", "rational", "arithmetic", "math"]
+requires-python = ">= 3.10"
+dynamic = ["version", "description"]
+
+[project.urls]
+Homepage = "https://tendto.github.io/lightrat/"
+Documentation = "https://tendto.github.io/lightrat/"
+Repository = "https://github.com/TendTo/lightrat.git"
+Issues = "https://github.com/TendTo/lightrat/issues"
+Changelog = "https://github.com/TendTo/lightrat/blob/main/docs/Changelog.md"
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+lightrat = "lightrat.__main__:main"
+
+[tool.setuptools]
+packages = []
+
+# Black configuration (code formatter)
+[tool.black]
+target-version = ['py310', 'py311', 'py312', 'py313', 'py314', 'py315']
+line-length = 120
+include = '(benchmarks|bindings/python|tests/bindings/python)\/.*\.py'
+
+# Isort configuration (import sorter)
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+python_files = "Test*.py"
+
+# If you are actively working on the package, you may consider additing it to the no-build-isolation-package list 
+# to avoid rebuilding it every time you run tests. 
+# However, note that this will require manually installing the build dependencies and it is not recommended for production use.
+# [tool.uv]
+# no-build-isolation-package = ["lightrat"]

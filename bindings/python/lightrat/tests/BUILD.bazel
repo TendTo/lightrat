@@ -1,0 +1,3 @@
+load("//tools:rules_python.bzl", "lightrat_py_test")
+
+lightrat_py_test(name = "test_rational")

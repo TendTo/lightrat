@@ -1,0 +1,66 @@
+"""Benchmarks for the lightrat library."""
+
+load("//tools:rules_cc.bzl", "lightrat_cc_googlebenchmark", "lightrat_cc_library")
+
+lightrat_cc_library(
+    name = "utils",
+    hdrs = ["utils.hpp"],
+    deps = ["//lightrat:rational"],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_binary_op_32",
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_binary_op_64",
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_unary_op_32",
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_unary_op_64",
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_inverse_division",
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_hash",
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googlebenchmark(
+    name = "bench_store",
+    deps = [
+        ":utils",
+        "@gmp",
+        "@gmp//:gmpxx",
+    ],
+)

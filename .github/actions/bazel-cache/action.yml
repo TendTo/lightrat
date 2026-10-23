@@ -1,0 +1,19 @@
+name: 'Setup Bazel Cache'
+description: 'Set up Bazel cache with proper cache keys'
+
+inputs:
+  additional-cache-key:
+    description: "Additional cache key"
+    required: false
+    default: ""
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Bazel
+      uses: bazel-contrib/setup-bazel@0.19.1
+      with:
+        bazelisk-cache: true
+        disk-cache: ${{ runner.os }}-${{ inputs.additional-cache-key }}
+        repository-cache: true
+        external-cache: true

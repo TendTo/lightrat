@@ -1,0 +1,63 @@
+"""Tests for the lightrat module."""
+
+load("//tools:rules_cc.bzl", "lightrat_cc_googletest", "lightrat_cc_library")
+
+lightrat_cc_library(
+    name = "utils",
+    hdrs = ["utils.hpp"],
+)
+
+lightrat_cc_googletest(
+    name = "test_rational",
+    tags = ["rational"],
+    deps = [
+        ":utils",
+        "//lightrat:errors",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googletest(
+    name = "test_rational_not_nan",
+    tags = ["rational"],
+    deps = [
+        ":utils",
+        "//lightrat:errors",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googletest(
+    name = "test_rational_not_inf",
+    tags = ["rational"],
+    deps = [
+        ":utils",
+        "//lightrat:errors",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googletest(
+    name = "test_rational_not_all",
+    tags = ["rational"],
+    deps = [
+        ":utils",
+        "//lightrat:errors",
+        "//lightrat:rational",
+    ],
+)
+
+lightrat_cc_googletest(
+    name = "test_lightrat",
+    tags = ["rational"],
+    deps = ["//lightrat:rational"],
+)
+
+lightrat_cc_googletest(
+    name = "test_multithreaded",
+    tags = ["rational"],
+    deps = [
+        ":utils",
+        "//lightrat:rational",
+    ],
+)

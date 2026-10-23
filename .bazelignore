@@ -1,0 +1,10 @@
+.git
+bazel-bin
+bazel-lightrat
+bazel-out
+bazel-testlogs
+bazel-win-bazel
+.vscode
+setup.py
+pyproject.toml
+uv.lock

@@ -1,0 +1,31 @@
+<svg width="320" height="320" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#42A5F5"/>
+      <stop offset="100%" stop-color="#1565C0"/>
+    </linearGradient>
+  </defs>
+    <rect x="0" y="0" width="100" height="100" rx="10" fill="url(#g)"/>
+    <!-- Numerator -->
+    <text x="50" y="30"
+          text-anchor="middle"
+          font-family="Consolas, monospace"
+          alignment-baseline="central"
+          font-size="24"
+          font-weight="700"
+          fill="white">n</text>
+    <!-- Denominator -->
+    <text x="50" y="70"
+          text-anchor="middle"
+          font-family="Consolas, monospace"
+          alignment-baseline="central"
+          font-size="24"
+          font-weight="700"
+          fill="white">d</text>
+    <!-- Lightweight indicator -->
+    <path d="M45 5 L25 60 L65 50 L55 95 L75 40 L35 50 Z"
+          fill="#FFD54F"
+          stroke="#FFD54F"
+          stroke-width="1"
+          stroke-linejoin="miter"/>
+</svg>

@@ -1,0 +1,61 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("//tools:rules_cc.bzl", "lightrat_cc_py_extension")
+load("@nanobind_bazel//:build_defs.bzl", "nanobind_stubgen")
+
+package(default_visibility = [
+    "//bindings/python/lightrat:__subpackages__",
+    "//lightrat:__subpackages__",
+    "//tests:__subpackages__",
+])
+
+lightrat_cc_py_extension(
+    name = "_lightrat",
+    srcs = ["_lightrat.cpp"],
+    deps = [
+        "//lightrat:errors",
+        "//lightrat:rational",
+        "//lightrat:version",
+    ],
+)
+
+py_library(
+    name = "lightrat_lib",
+    srcs = [
+        "__init__.py",
+        "__main__.py",
+    ],
+    data = [
+        ":_lightrat",
+        ":lightrat_stub",
+    ],
+    imports = [".."],
+    srcs_version = "PY3",
+)
+
+nanobind_stubgen(
+    name = "lightrat_stub",
+    marker_file = "py.typed",
+    module = ":_lightrat",
+    quiet = True,
+)
+
+py_binary(
+    name = "lightrat",
+    srcs = ["__main__.py"],
+    imports = [".."],
+    main = "__main__.py",
+    python_version = "PY3",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":lightrat_lib",
+    ],
+)
+
+filegroup(
+    name = "lightrat_files",
+    srcs = [
+        ":_lightrat",
+        ":lightrat_lib",
+        ":lightrat_stub",
+    ],
+)

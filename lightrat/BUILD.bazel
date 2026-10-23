@@ -1,0 +1,129 @@
+load("//tools:cpplint.bzl", "cpplint")
+load("//tools:rules_cc.bzl", "lightrat_cc_binary", "lightrat_cc_library", "lightrat_cc_shared_library")
+load("//tools:variables.bzl", "LIGHTRAT_DESCRIPTION", "LIGHTRAT_NAME", "LIGHTRAT_VERSION")
+load("@rules_pkg//pkg:install.bzl", "pkg_install")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+
+genrule(
+    name = "generate_version_header",
+    srcs = [":version.h.in"],
+    outs = ["version.h"],
+    cmd = "$(location //tools:generate_version_header) '$(location :version.h.in)' %s %s '%s' > $@" % (LIGHTRAT_NAME, LIGHTRAT_VERSION, LIGHTRAT_DESCRIPTION),
+    cmd_ps = "& '$(location //tools:generate_version_header.ps1)' '$(location :version.h.in)' '%s' '%s' '%s' > $@" % (LIGHTRAT_NAME, LIGHTRAT_VERSION, LIGHTRAT_DESCRIPTION),
+    stamp = True,
+    tools = [
+        "//tools:generate_version_header",
+        "//tools:generate_version_header.ps1",
+    ],
+)
+
+lightrat_cc_library(
+    name = "version",
+    hdrs = [":generate_version_header"],
+    visibility = ["//visibility:public"],
+)
+
+lightrat_cc_library(
+    name = "hash",
+    hdrs = ["hash.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@gmp",
+        "@gmp//:gmpxx",
+    ],
+)
+
+lightrat_cc_library(
+    name = "errors",
+    hdrs = ["errors.h"],
+    visibility = ["//visibility:public"],
+)
+
+lightrat_cc_library(
+    name = "concepts",
+    hdrs = ["concepts.h"],
+    visibility = ["//visibility:public"],
+)
+
+lightrat_cc_library(
+    name = "rational",
+    srcs = [
+        "MpqStore.hpp",
+        "Rational.cpp",
+        "lightrat.cpp",
+    ],
+    hdrs = [
+        "Rational.h",
+        "lightrat.h",
+    ],
+    implementation_deps = [
+        ":errors",
+        ":hash",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":concepts",
+        "@gmp",
+        "@gmp//:gmpxx",
+    ],
+)
+
+lightrat_cc_shared_library(
+    name = "lightrat_shared",
+    deps = [
+        ":rational",
+        ":version",
+    ],
+)
+
+lightrat_cc_binary(
+    name = "lightrat",
+    srcs = ["main.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":rational",
+        ":version",
+    ],
+)
+
+pkg_files(
+    name = "headers",
+    srcs = glob([
+        "**/*.h",
+        "**/*.hpp",
+    ]),
+    prefix = "include/lightrat",
+)
+
+pkg_files(
+    name = "libs",
+    srcs = [
+        ":lightrat_shared",
+        ":rational",
+    ],
+    prefix = "lib",
+    renames = select({
+        "@platforms//os:windows": {
+            ":lightrat_shared": "lightrat.dll",
+            ":rational": "lightrat.lib",
+        },
+        "@platforms//os:linux": {
+            ":lightrat_shared": "liblightrat.so",
+            ":rational": "librational.a",
+        },
+        "@platforms//os:macos": {
+            ":lightrat_shared": "liblightrat.dylib",
+            ":rational": "librational.a",
+        },
+    }),
+)
+
+pkg_install(
+    name = "install",
+    srcs = [
+        ":headers",
+        ":libs",
+    ],
+)
+
+cpplint()

@@ -1,0 +1,79 @@
+# Workspace status command
+build --enable_platform_specific_config
+build --experimental_cc_shared_library
+build --incompatible_default_to_explicit_init_py
+build --features=-default_cpp_std
+build --features=external_include_paths
+
+# Flag aliases
+build --flag_alias=enable_static_build=//tools:enable_static_build
+build --flag_alias=enable_dynamic_build=//tools:enable_dynamic_build
+build --flag_alias=enable_python_build=//tools:enable_python_build
+build --flag_alias=python_version=@rules_python//python/config_settings:python_version
+
+# Default build
+build:windows --cxxopt=/std:c++20
+build:windows --workspace_status_command=tools/workspace_status.bat
+
+build:linux --cxxopt=-std=c++20
+build:linux --workspace_status_command=tools/workspace_status.sh
+
+build:macos --cxxopt=-std=c++20
+build:macos --workspace_status_command=tools/workspace_status.sh
+
+# Debug build
+build:dbg --compilation_mode=dbg
+
+# Optimized build
+build:opt --compilation_mode=opt
+build:opt --cxxopt=-O3
+
+# Build for benchmarking
+build:bench --compilation_mode=opt
+build:bench --cxxopt=-O3
+build:bench --cxxopt=-DNLOG
+build:bench --enable_static_build
+
+# Building python bindings
+build:py --compilation_mode=opt
+build:py --enable_python_build
+
+# Sanity checks build (gcc memory)
+build:msan --compilation_mode=dbg
+build:msan --cxxopt=-fno-common
+build:msan --cxxopt=-fsanitize=leak
+build:msan --cxxopt=-fsanitize=address
+build:msan --cxxopt=-fsanitize=undefined
+build:msan --cxxopt=-fsanitize-address-use-after-scope
+build:msan --cxxopt=-O0
+build:msan --cxxopt=-fno-stack-protector
+build:msan --cxxopt=-fno-omit-frame-pointer
+build:msan --cxxopt=-fno-optimize-sibling-calls
+build:msan --cxxopt=-DCDS_ADDRESS_SANITIZER_ENABLED
+build:msan --cxxopt=-D_FORTIFY_SOURCE=0
+build:msan --cxxopt=-static-libasan
+build:msan --cxxopt=-static-libubsan
+build:msan --linkopt=-g
+build:msan --linkopt=-fsanitize=leak
+build:msan --linkopt=-fsanitize=address
+build:msan --linkopt=-fsanitize=undefined
+build:msan --linkopt=-fsanitize-address-use-after-scope
+
+# Sanity checks build (gcc threads)
+# The ASLR needs to be disabled (e.g.,echo 0 | sudo tee /proc/sys/kernel/randomize_va_space)
+build:tsan --compilation_mode=dbg
+build:tsan --cxxopt=-fno-common
+build:tsan --cxxopt=-fsanitize=thread
+build:tsan --cxxopt=-O0
+build:tsan --cxxopt=-pthread
+build:tsan --cxxopt=-fno-stack-protector
+build:tsan --cxxopt=-fno-omit-frame-pointer
+build:tsan --cxxopt=-fno-optimize-sibling-calls
+build:tsan --cxxopt=-DCDS_THREAD_SANITIZER_ENABLED
+build:tsan --cxxopt=-D_FORTIFY_SOURCE=0
+build:tsan --linkopt=-g
+build:tsan --linkopt=-fsanitize=thread
+
+# Building python bindings
+# Dependency clean
+build:dwyu --aspects=//tools:dwyu.bzl%dwyu --output_groups=dwyu --keep_going

@@ -1,0 +1,190 @@
+"""A BUILD file providing the configuration for the project."""
+
+load("@bazel_skylib//lib:selects.bzl", "selects")
+load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//tools:variables.bzl", "LIGHTRAT_DESCRIPTION", "LIGHTRAT_VERSION", "expose_variable", "make_var_substitution")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files([
+    "generate_version_header.ps1",
+    "pytest_main.py",
+    "requirements.txt",
+])
+
+######################################################################################
+# Expose project metadata as targets, which can be detected using `bazel query`
+######################################################################################
+
+expose_variable(
+    name = "lightrat_version",
+    value = LIGHTRAT_VERSION,
+)
+
+expose_variable(
+    name = "lightrat_description",
+    value = LIGHTRAT_DESCRIPTION,
+)
+
+######################################################################################
+# Custom flags that control build behavior
+#
+# Pass them to bazel with --//tools:<flag>=<value>
+# Example:
+# bazel build //lightrat:main --//tools:enable_dynamic_build=True
+######################################################################################
+
+bool_flag(
+    name = "enable_dynamic_build",
+    build_setting_default = False,
+)
+
+bool_flag(
+    name = "enable_static_build",
+    build_setting_default = False,
+)
+
+bool_flag(
+    name = "enable_python_build",
+    build_setting_default = False,
+)
+
+bool_flag(
+    name = "enable_explicit_constructor",
+    build_setting_default = True,
+)
+
+bool_flag(
+    name = "enable_explicit_cast",
+    build_setting_default = True,
+)
+
+bool_flag(
+    name = "enable_infinity",
+    build_setting_default = True,
+)
+
+bool_flag(
+    name = "enable_nan",
+    build_setting_default = True,
+)
+
+bool_flag(
+    name = "enable_thread_safe",
+    build_setting_default = True,
+)
+
+###########################################
+# Configuration settings
+###########################################
+
+config_setting(
+    name = "dynamic_build",
+    flag_values = {":enable_dynamic_build": "True"},
+)
+
+config_setting(
+    name = "static_build",
+    flag_values = {":enable_static_build": "True"},
+)
+
+config_setting(
+    name = "python_build",
+    flag_values = {":enable_python_build": "True"},
+)
+
+config_setting(
+    name = "explicit_constructor_build",
+    flag_values = {":enable_explicit_constructor": "True"},
+)
+
+config_setting(
+    name = "explicit_cast_build",
+    flag_values = {":enable_explicit_cast": "True"},
+)
+
+config_setting(
+    name = "infinity_build",
+    flag_values = {":enable_infinity": "True"},
+)
+
+config_setting(
+    name = "nan_build",
+    flag_values = {":enable_nan": "True"},
+)
+
+config_setting(
+    name = "_thread_safe_build",
+    flag_values = {":enable_thread_safe": "True"},
+)
+
+config_setting(
+    name = "free_threaded_python_build",
+    flag_values = {
+        ":enable_python_build": "True",
+        "@rules_python//python/config_settings:py_freethreaded": "True",
+    },
+)
+
+selects.config_setting_group(
+    name = "thread_safe_build",
+    match_any = [
+        ":free_threaded_python_build",
+        ":_thread_safe_build",
+    ],
+)
+
+config_setting(
+    name = "clang_build",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "clang",
+    },
+)
+
+config_setting(
+    name = "gcc_build",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "gcc",
+    },
+)
+
+config_setting(
+    name = "msvc_cl_build",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "msvc-cl",
+    },
+)
+
+config_setting(
+    name = "clang_cl_build",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "clang-cl",
+    },
+)
+
+config_setting(
+    name = "debug_build",
+    values = {"compilation_mode": "dbg"},
+)
+
+config_setting(
+    name = "release_build",
+    values = {"compilation_mode": "opt"},
+)
+
+###########################################
+# Version header script
+###########################################
+
+sh_binary(
+    name = "generate_version_header",
+    srcs = ["generate_version_header.sh"],
+)
+
+###########################################
+# Make variable substitution toolchain
+###########################################
+make_var_substitution(
+    name = "make_var_substitution",
+)
