@@ -2,12 +2,12 @@ name: lightrat CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - "lightrat/**"
       - "test/**"
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
       - "lightrat/**"
       - "test/**"
@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -47,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     needs: build
 

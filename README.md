@@ -1,4 +1,4 @@
-# <img alt="Icon" src="docs/_static/logo.svg" align="left" width="35" height="35"> Lightrat
+# <img alt="Icon" src="https://raw.githubusercontent.com/TendTo/lightrat/refs/heads/main/docs/_static/logo.svg" align="left" width="35" height="35"> Lightrat
 
 [![lightrat CI](https://github.com/TendTo/lightrat/actions/workflows/lightrat.yml/badge.svg)](https://github.com/TendTo/lightrat/actions/workflows/lightrat.yml)
 [![lightrat (Python) CI](https://github.com/TendTo/lightrat/actions/workflows/pylightrat.yml/badge.svg)](https://github.com/TendTo/lightrat/actions/workflows/pylightrat.yml)
@@ -8,6 +8,17 @@
 Lightweight library for rational numbers.
 
 ## Installation
+
+### Python with pip
+
+The pre-built python bindings can be installed with `pip` or similar package managers directly from [pypi](https://pypi.org/project/lightrat/):
+
+```bash
+pip install lightrat
+```
+
+Note that the pre-built wheels are not available for all possible platforms.
+If a wheel is not available, the package manager will try to build the package from source, which may take a long time and requires bazel to be present on the machine.
 
 ### From source
 
@@ -23,7 +34,7 @@ To use lightrat compiling it from source you will need
 
 #### Using lightrat within Bazel
 
-Add `lightrat` to your `MODULE.bazel` and depend on it directly:
+Add lightrat to your `MODULE.bazel` and depend on it directly:
 
 ```bzl
 # MODULE.bazel file

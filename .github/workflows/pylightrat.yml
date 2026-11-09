@@ -18,8 +18,6 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-    # Skip tests for now
-    if: false
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -39,7 +37,7 @@ jobs:
 
   build:
     runs-on: ${{ matrix.os }}
-    # needs: test
+    needs: test
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest, ubuntu-22.04]
@@ -62,12 +60,25 @@ jobs:
       - name: Cache Bazel
         uses: ./.github/actions/bazel-cache
 
+      - name: Install the latest patchelf binary
+        if: matrix.os == 'ubuntu-22.04'
+        uses: jaxxstorm/action-install-gh-release@v4.0.0
+        with:
+          repo: NixOS/patchelf
+          binaries-location: bin
+          digest: 38861b171079e440b25ac86483284f690d0ee7921dba98b0c8fe04a9b0a11667
+          platform-matching: disable
+          chmod: 0755
+          arch: x86_64
+          cache: enable
+          tag: "0.19.3"
+
       - name: Build source distribution
         run: |
           python3 -m build
 
       - name: Ensure wheels support manylinux (Linux)
-        if: matrix.os == 'ubuntu-latest'
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           auditwheel repair dist/lightrat-*.whl -w dist
           rm dist/*-linux*.whl

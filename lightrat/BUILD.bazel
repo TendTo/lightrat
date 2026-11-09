@@ -55,6 +55,7 @@ lightrat_cc_library(
     hdrs = [
         "Rational.h",
         "lightrat.h",
+        "lightrat.hpp",
     ],
     implementation_deps = [
         ":errors",
