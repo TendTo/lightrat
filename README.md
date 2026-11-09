@@ -1,6 +1,8 @@
 # <img alt="Icon" src="docs/_static/logo.svg" align="left" width="35" height="35"> Lightrat
 
 [![lightrat CI](https://github.com/TendTo/lightrat/actions/workflows/lightrat.yml/badge.svg)](https://github.com/TendTo/lightrat/actions/workflows/lightrat.yml)
+[![lightrat (Python) CI](https://github.com/TendTo/lightrat/actions/workflows/pylightrat.yml/badge.svg)](https://github.com/TendTo/lightrat/actions/workflows/pylightrat.yml)
+[![Docker CI](https://github.com/TendTo/lightrat/actions/workflows/docker.yml/badge.svg)](https://github.com/TendTo/lightrat/actions/workflows/docker.yml)
 [![Docs CI](https://github.com/TendTo/lightrat/actions/workflows/docs.yml/badge.svg)](https://github.com/TendTo/lightrat/actions/workflows/docs.yml)
 
 Lightweight library for rational numbers.
@@ -124,7 +126,7 @@ The folder structure is as follows:
 ```bash
 .
 ├── bindings                # Library bindings in other languages
-│   └── pylightrat          # Python bindings
+│   └── python             # Python bindings
 ├── docs                    # Documentation
 │   └── BUILD.bazel         # Documentation BUILD file
 ├── lightrat                # Main library source code

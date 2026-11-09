@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=84.2.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,6 +12,7 @@ maintainers = [
     { name = "Ernesto Casablanca", email = "casablancaernesto@gmail.com" },
 ]
 license = "Apache-2.0"
+license-files = ["LICEN[CS]E*"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Operating System :: POSIX :: Linux",
