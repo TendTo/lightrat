@@ -64,10 +64,11 @@ class BazelExtension(setuptools.Extension):
 
     def __init__(self, ext_name, bazel_target):
         self.bazel_target = bazel_target
-        folders = ("lightrat", "bindings", "tools")
+        folders = ("lightrat", "bindings/python", "tools")
+        exclude_folders = ["bindings/python/lightrat/tests/"]
         files = []
         for folder in folders:
-            files += [file for file in glob.glob(f"{folder}/**/*", recursive=True) if "node_modules" not in file]
+            files += [file for file in glob.glob(f"{folder}/**/*", recursive=True) if not any(file.startswith(exclude) for exclude in exclude_folders) and os.path.isfile(file)]
         files += ["BUILD.bazel", "MODULE.bazel", ".bazelversion", ".bazelrc", ".bazelignore"]
         setuptools.Extension.__init__(self, ext_name, sources=files)
 

@@ -43,6 +43,9 @@ Changelog = "https://github.com/TendTo/lightrat/blob/main/docs/Changelog.md"
 [project.optional-dependencies]
 test = ["pytest"]
 
+[tool.setuptools]
+package-dir = { "" = "bindings/python" }
+
 [project.scripts]
 lightrat = "lightrat.__main__:main"
 
