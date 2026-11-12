@@ -1,5 +1,5 @@
 load("//tools:cpplint.bzl", "cpplint")
-load("//tools:rules_cc.bzl", "lightrat_cc_binary", "lightrat_cc_library", "lightrat_cc_shared_library")
+load("//tools:rules_cc.bzl", "lightrat_cc_binary", "lightrat_cc_library", "lightrat_cc_shared_library", "lightrat_cc_static_library")
 load("//tools:variables.bzl", "LIGHTRAT_DESCRIPTION", "LIGHTRAT_NAME", "LIGHTRAT_VERSION")
 load("@rules_pkg//pkg:install.bzl", "pkg_install")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
@@ -65,22 +65,32 @@ lightrat_cc_library(
     ],
 )
 
-lightrat_cc_shared_library(
-    name = "lightrat_shared",
+lightrat_cc_library(
+    name = "lightrat",
+    hdrs = ["lightrat.hpp"],
+    visibility = ["//visibility:public"],
     deps = [
+        ":errors",
         ":rational",
         ":version",
     ],
 )
 
 lightrat_cc_binary(
-    name = "lightrat",
+    name = "lightrat_bin",
     srcs = ["main.cpp"],
     visibility = ["//visibility:public"],
-    deps = [
-        ":rational",
-        ":version",
-    ],
+    deps = [":lightrat"],
+)
+
+lightrat_cc_shared_library(
+    name = "lightrat_shared",
+    deps = [":lightrat"],
+)
+
+lightrat_cc_static_library(
+    name = "lightrat_static",
+    deps = [":lightrat"],
 )
 
 pkg_files(
@@ -96,21 +106,21 @@ pkg_files(
     name = "libs",
     srcs = [
         ":lightrat_shared",
-        ":rational",
+        ":lightrat_static",
     ],
     prefix = "lib",
     renames = select({
         "@platforms//os:windows": {
             ":lightrat_shared": "lightrat.dll",
-            ":rational": "lightrat.lib",
+            ":lightrat_static": "lightrat.lib",
         },
         "@platforms//os:linux": {
             ":lightrat_shared": "liblightrat.so",
-            ":rational": "librational.a",
+            ":lightrat_static": "liblightrat.a",
         },
         "@platforms//os:macos": {
             ":lightrat_shared": "liblightrat.dylib",
-            ":rational": "librational.a",
+            ":lightrat_static": "liblightrat.a",
         },
     }),
 )

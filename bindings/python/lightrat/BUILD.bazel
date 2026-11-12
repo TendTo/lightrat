@@ -11,11 +11,7 @@ package(default_visibility = [
 lightrat_cc_py_extension(
     name = "_lightrat",
     srcs = ["_lightrat.cpp"],
-    deps = [
-        "//lightrat:errors",
-        "//lightrat:rational",
-        "//lightrat:version",
-    ],
+    deps = ["//lightrat"],
 )
 
 py_library(

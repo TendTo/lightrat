@@ -5,6 +5,7 @@ Inspired by Drake's drake.bzl file https://github.com/RobotLocomotion/drake/blob
 
 load("@nanobind_bazel//:build_defs.bzl", "nanobind_extension")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_shared_library", "cc_test")
+load("@rules_cc//cc:cc_static_library.bzl", "cc_static_library")
 
 # The CXX_FLAGS will be enabled for all C++ rules in the project
 # building with any linux compiler.
@@ -203,10 +204,10 @@ def lightrat_cc_shared_library(name, deps, shared_lib_name = None, **kwargs):
     Args:
         name: The name of the library.
         deps: A list of dependencies. Will be inherited by dependents.
-        shared_lib_name: The name of the shared library file. 
+        shared_lib_name: The name of the shared library file.
             If the extension is not provided, it will be inferred based on the platform.
             If not provided, it will be inferred from the name.
-        **kwargs: Additional arguments to pass to cc_library.
+        **kwargs: Additional arguments to pass to cc_shared_library.
     """
     if shared_lib_name != None and "." not in shared_lib_name:
         shared_lib_name = select({
@@ -214,11 +215,25 @@ def lightrat_cc_shared_library(name, deps, shared_lib_name = None, **kwargs):
             "//tools:clang_cl_build": shared_lib_name + ".dll",
             "//conditions:default": "lib" + shared_lib_name + ".so",
         })
-    
+
     cc_shared_library(
         name = name,
         deps = deps,
         shared_lib_name = shared_lib_name,
+        **kwargs
+    )
+
+def lightrat_cc_static_library(name, deps, **kwargs):
+    """Creates a rule to declare a C++ static library.
+
+    Args:
+        name: The name of the library.
+        deps: A list of dependencies. Will be inherited by dependents.
+        **kwargs: Additional arguments to pass to cc_library.
+    """
+    cc_static_library(
+        name = name,
+        deps = deps,
         **kwargs
     )
 

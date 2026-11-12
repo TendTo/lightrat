@@ -5,6 +5,7 @@
  * @file
  */
 #include "lightrat/Rational.h"
+#include "lightrat/errors.h"
 #include "lightrat/lightrat.h"
 #include "lightrat/version.h"
 

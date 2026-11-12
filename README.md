@@ -161,13 +161,13 @@ bazel build //lightrat
 ```
 
 ```bash
-# Build the main application in debug mode
+# Build the main library in debug mode
 bazel build //lightrat --config=dbg
 ```
 
 ```bash
-# Build the main application in release mode
-bazel run //lightrat --config=opt
+# Run the main application in release mode
+bazel run //lightrat:lightrat_bin --config=opt
 ```
 
 ```bash

@@ -27,7 +27,7 @@ jobs:
         uses: ./.github/actions/bazel-cache
 
       - name: Build
-        run: bazel run //lightrat
+        run: bazel run //lightrat:lightrat_bin
 
   lint:
     runs-on: ubuntu-latest
