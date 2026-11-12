@@ -27,18 +27,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 WORKDIR /app
 COPY . .
 
-RUN bazel build --config=opt --enable_static_build=True //lightrat
+RUN bazel run --config=opt //lightrat:install -- --dest_dir=/usr
+RUN bazel build --config=opt //lightrat:lightrat_bin && mv bazel-bin/lightrat/lightrat_bin /sbin
+RUN bazel clean --expunge
 
-ENTRYPOINT [ "lightrat" ]
-
-
-FROM alpine:3.24.3
-
-LABEL authors="Ernesto Casablanca"
-LABEL workspace="lightrat"
-
-WORKDIR /app
-
-COPY --from=build /app/bazel-bin/lightrat/lightrat /sbin
-
-ENTRYPOINT ["lightrat"]
+ENTRYPOINT [ "lightrat_bin" ]
