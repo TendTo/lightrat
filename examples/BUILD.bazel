@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_python//python:defs.bzl", "py_binary")
+
+cc_binary(
+    name = "example_cpp",
+    srcs = ["example.cpp"],
+    deps = ["@lightrat//lightrat"],
+)
+
+py_binary(
+    name = "example_py",
+    srcs = ["example.py"],
+    main = "example.py",
+    deps = ["@lightrat//bindings/python/lightrat"],
+)
