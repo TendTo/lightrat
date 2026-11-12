@@ -10,7 +10,7 @@ module(
 #################################################################################
 
 # rules_cc for building C++ libraries with Bazel
-bazel_dep(name = "rules_cc", version = "0.2.26")
+bazel_dep(name = "rules_cc", version = "0.2.28")
 
 # Utility rules for Bazel
 bazel_dep(name = "bazel_skylib", version = "1.9.2")
@@ -22,7 +22,7 @@ bazel_dep(name = "platforms", version = "1.1.0")
 bazel_dep(name = "gmp", version = "6.3.0.bcr.4")
 
 # rules_python for building python targets
-bazel_dep(name = "rules_python", version = "2.4.3")
+bazel_dep(name = "rules_python", version = "2.4.6")
 
 # nanobind for binding C++ and Python
 bazel_dep(name = "nanobind_bazel", version = "3.1.0.bcr.1")
@@ -51,12 +51,12 @@ bazel_dep(name = "google_benchmark", version = "1.10.0", dev_dependency = True)
 bazel_dep(name = "rules_doxygen", version = "2.7.0", dev_dependency = True)
 
 # MIT | rules for dealing with target dependencies
-bazel_dep(name = "depend_on_what_you_use", version = "1.1.2", dev_dependency = True)
+bazel_dep(name = "depend_on_what_you_use", version = "1.2.0", dev_dependency = True)
 
 #################################################################################
 # Load module extensions
 #################################################################################
-doxygen_extension = use_extension("@rules_doxygen//:extensions.bzl", "doxygen_extension")
+doxygen_extension = use_extension("@rules_doxygen//:extensions.bzl", "doxygen_extension", dev_dependency = True)
 use_repo(doxygen_extension, "doxygen")
 
 PYTHON_VERSIONS = [
