@@ -13,7 +13,4 @@ updates:
       directories: ["/", "/examples"] # Location of package manifests
       schedule:
           interval: "weekly"
-    - package-ecosystem: "pip"
-      directory: "/tools" # Location of package manifests
-      schedule:
-          interval: "weekly"
+
