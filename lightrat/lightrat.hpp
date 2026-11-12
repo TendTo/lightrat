@@ -4,6 +4,8 @@
  * @licence Apache-2.0 license
  * @file
  */
+#pragma once
+
 #include "lightrat/Rational.h"
 #include "lightrat/errors.h"
 #include "lightrat/lightrat.h"

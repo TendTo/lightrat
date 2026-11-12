@@ -5,6 +5,13 @@ load("@rules_pkg//pkg:install.bzl", "pkg_install")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("@bazel_skylib//rules:expand_template.bzl", "expand_template")
 
+package(default_visibility = [
+    "//benchmarks:__subpackages__",
+    "//bindings/python/lightrat:__subpackages__",
+    "//lightrat:__subpackages__",
+    "//tests:__subpackages__",
+])
+
 expand_template(
     name = "generate_version_header",
     out = "version.h",
