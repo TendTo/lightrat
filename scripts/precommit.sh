@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-bazel run --config=dbg //lightrat
+set -o pipefail
+bazel run --config=dbg //lightrat:lightrat_bin
 bazel test --config=dbg //lightrat/...
 bazel test --config=dbg //tests/...
 bazel build --config=dbg --config=dwyu //lightrat
