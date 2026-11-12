@@ -27,7 +27,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 WORKDIR /app
 COPY . .
 
-RUN bazel run --config=opt //lightrat:install -- --dest_dir=/usr
+RUN bazel run --config=opt //lightrat:install -- --destdir=/usr
 RUN bazel build --config=opt //lightrat:lightrat_bin && mv bazel-bin/lightrat/lightrat_bin /sbin
 RUN bazel clean --expunge
 
