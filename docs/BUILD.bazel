@@ -76,5 +76,5 @@ doxygen(
     source_browser = True,
     use_mathjax = True,
     use_mdfile_as_mainpage = "README.md",
-    deps = ["//lightrat:rational"],
+    deps = ["//lightrat"],
 )
