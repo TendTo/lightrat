@@ -28,6 +28,7 @@ expand_template(
 
 lightrat_cc_library(
     name = "version",
+    srcs = ["version.cpp"],
     hdrs = [":generate_version_header"],
 )
 

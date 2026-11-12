@@ -3,6 +3,7 @@
  * @copyright 2026 lightrat
  * @licence Apache-2.0 license
  * @file
+ * Main header of the lightrat library.
  */
 #pragma once
 

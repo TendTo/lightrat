@@ -2,6 +2,8 @@
 #include <lightrat/lightrat.hpp>
 
 int main() {
+  std::cout << lightrat_get_status_string << std::endl;
+
   lightrat::Rational<> a{1, 3};
   lightrat::Rational<> b{"3/4"};
 
