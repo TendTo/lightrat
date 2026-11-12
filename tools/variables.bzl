@@ -1,5 +1,5 @@
 LIGHTRAT_NAME = "lightrat"
-LIGHTRAT_VERSION = "0.0.1"
+LIGHTRAT_VERSION = "0.0.2"
 LIGHTRAT_AUTHOR = "Ernesto Casablanca"
 LIGHTRAT_AUTHOR_EMAIL = "casablancaernesto@gmail.com"
 LIGHTRAT_DESCRIPTION = "Lightweight library for rational numbers"

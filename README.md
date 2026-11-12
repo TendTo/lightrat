@@ -39,7 +39,7 @@ Add lightrat to your `MODULE.bazel` and depend on it directly:
 ```bzl
 # MODULE.bazel file
 
-bazel_dep(name = "lightrat", version = "0.0.1")
+bazel_dep(name = "lightrat", version = "0.0.2")
 ```
 
 If you don't want to depend on the [Bazel package registry](https://registry.bazel.build/home) or need a not-yet-published version of this module, you can use a `git_override` by adding the following lines below bazel_dep in your MODULE.bazel file:
@@ -47,7 +47,7 @@ If you don't want to depend on the [Bazel package registry](https://registry.baz
 ```bzl
 # MODULE.bazel file
 
-bazel_dep(name = "lightrat", version = "0.0.1")
+bazel_dep(name = "lightrat", version = "0.0.2")
 git_override(
     module_name = "lightrat",
     commit = "aacc1c856c350a89a0fa9c43b9318a248d5f1781", # Commit hash you want to use
