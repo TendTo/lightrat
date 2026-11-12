@@ -18,7 +18,7 @@
 /bazel.iml
 # Ignore all bazel-* symlinks. There is no full list since this can change
 # based on the name of the directory bazel is cloned into.
-/bazel-*
+bazel-*
 MODULE.bazel.lock
 # Ignore outputs generated during Bazel bootstrapping.
 /output/
@@ -89,6 +89,7 @@ genhtml/
 # Tests
 /*.log
 *.out
+examples/example
 
 # Checks
 valgrind-out.txt
