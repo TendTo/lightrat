@@ -1,6 +1,5 @@
 # Workspace status command
 build --enable_platform_specific_config
-build --experimental_cc_shared_library
 build --incompatible_default_to_explicit_init_py
 build --features=-default_cpp_std
 build --features=external_include_paths
@@ -13,13 +12,8 @@ build --flag_alias=python_version=@rules_python//python/config_settings:python_v
 
 # Default build
 build:windows --cxxopt=/std:c++20
-build:windows --workspace_status_command=tools/workspace_status.bat
-
 build:linux --cxxopt=-std=c++20
-build:linux --workspace_status_command=tools/workspace_status.sh
-
 build:macos --cxxopt=-std=c++20
-build:macos --workspace_status_command=tools/workspace_status.sh
 
 # Debug build
 build:dbg --compilation_mode=dbg

@@ -9,6 +9,6 @@
 #include "lightrat/lightrat.hpp"
 
 int main() {
-  std::cout << LIGHTRAT_PROGRAM_NAME ":  " LIGHTRAT_DESCRIPTION " (version " LIGHTRAT_VERSION_STRING ")" << std::endl;
+  std::cout << LIGHTRAT_PROGRAM_NAME ":  " LIGHTRAT_DESCRIPTION " (version " LIGHTRAT_VERSION_STRING ") (build: " LIGHTRAT_BUILD_MODE ")" << std::endl;
   return 0;
 }

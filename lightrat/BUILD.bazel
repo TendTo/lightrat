@@ -3,30 +3,30 @@ load("//tools:rules_cc.bzl", "lightrat_cc_binary", "lightrat_cc_library", "light
 load("//tools:variables.bzl", "LIGHTRAT_DESCRIPTION", "LIGHTRAT_NAME", "LIGHTRAT_VERSION")
 load("@rules_pkg//pkg:install.bzl", "pkg_install")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@bazel_skylib//rules:expand_template.bzl", "expand_template")
 
-genrule(
+expand_template(
     name = "generate_version_header",
-    srcs = [":version.h.in"],
-    outs = ["version.h"],
-    cmd = "$(location //tools:generate_version_header) '$(location :version.h.in)' %s %s '%s' > $@" % (LIGHTRAT_NAME, LIGHTRAT_VERSION, LIGHTRAT_DESCRIPTION),
-    cmd_ps = "& '$(location //tools:generate_version_header.ps1)' '$(location :version.h.in)' '%s' '%s' '%s' > $@" % (LIGHTRAT_NAME, LIGHTRAT_VERSION, LIGHTRAT_DESCRIPTION),
-    stamp = True,
-    tools = [
-        "//tools:generate_version_header",
-        "//tools:generate_version_header.ps1",
-    ],
+    out = "version.h",
+    substitutions = {
+        "@LIGHTRAT_NAME@": LIGHTRAT_NAME,
+        "@LIGHTRAT_VERSION@": LIGHTRAT_VERSION,
+        "@LIGHTRAT_VERSION_MAJOR@": LIGHTRAT_VERSION.split(".")[0],
+        "@LIGHTRAT_VERSION_MINOR@": LIGHTRAT_VERSION.split(".")[1],
+        "@LIGHTRAT_VERSION_PATCH@": LIGHTRAT_VERSION.split(".")[2],
+        "@LIGHTRAT_DESCRIPTION@": LIGHTRAT_DESCRIPTION,
+    },
+    template = ":version.h.in",
 )
 
 lightrat_cc_library(
     name = "version",
     hdrs = [":generate_version_header"],
-    visibility = ["//visibility:public"],
 )
 
 lightrat_cc_library(
     name = "hash",
     hdrs = ["hash.h"],
-    visibility = ["//visibility:public"],
     deps = [
         "@gmp",
         "@gmp//:gmpxx",
@@ -36,13 +36,11 @@ lightrat_cc_library(
 lightrat_cc_library(
     name = "errors",
     hdrs = ["errors.h"],
-    visibility = ["//visibility:public"],
 )
 
 lightrat_cc_library(
     name = "concepts",
     hdrs = ["concepts.h"],
-    visibility = ["//visibility:public"],
 )
 
 lightrat_cc_library(
@@ -55,13 +53,11 @@ lightrat_cc_library(
     hdrs = [
         "Rational.h",
         "lightrat.h",
-        "lightrat.hpp",
     ],
     implementation_deps = [
         ":errors",
         ":hash",
     ],
-    visibility = ["//visibility:public"],
     deps = [
         ":concepts",
         "@gmp",
@@ -89,7 +85,7 @@ lightrat_cc_binary(
 
 pkg_files(
     name = "headers",
-    srcs = glob([
+    srcs = [":generate_version_header"] + glob([
         "**/*.h",
         "**/*.hpp",
     ]),
