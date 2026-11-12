@@ -9,6 +9,6 @@
 #include "lightrat/lightrat.hpp"
 
 int main() {
-  std::cout << lightrat_get_status_string << std::endl;
+  std::cout << lightrat_status_string << std::endl;
   return 0;
 }

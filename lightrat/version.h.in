@@ -15,4 +15,4 @@
 #define LIGHTRAT_VERSION_REVISION  @LIGHTRAT_VERSION_PATCH@
 #define LIGHTRAT_DESCRIPTION      "@LIGHTRAT_DESCRIPTION@"
 
-extern const char* lightrat_get_status_string;  ///< String identifying the build version and mode
+extern const char* lightrat_status_string;  ///< String identifying the build version and mode

@@ -12,5 +12,5 @@
 #define LIGHTRAT_BUILD_MODE "debug"
 #endif
 
-const char* lightrat_get_status_string = LIGHTRAT_PROGRAM_NAME
+const char* lightrat_status_string = LIGHTRAT_PROGRAM_NAME
     ":  " LIGHTRAT_DESCRIPTION " (version " LIGHTRAT_VERSION_STRING ") (build: " LIGHTRAT_BUILD_MODE ")";

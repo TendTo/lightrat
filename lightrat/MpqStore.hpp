@@ -32,7 +32,10 @@ namespace lightrat {
  */
 class MpqStore {
  private:
- /** Lightweight wrapper around the mpq_t struct, ensuring [RAII](https://en.cppreference.com/cpp/language/raii). */
+  /**
+   * Lightweight wrapper around the mpq_t struct, ensuring [RAII](https://en.cppreference.com/cpp/language/raii).
+   * The goal is to reserve a the bare minimum memory we will need when initializing the mpq_t.
+   */
   struct mpq_wrapper {
     mpq_t q;  ///< The GMP rational value managed by this wrapper.
     /**

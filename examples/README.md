@@ -72,7 +72,8 @@ To use lightrat without bazel, you will need to build and install the library fi
 
 ### CPP
 
-Installing lighrat.
+First, install [gmp](https://gmplib.org/).
+Then, build lightrat.
 The library will be located in the build folder.
 
 ```bash

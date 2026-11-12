@@ -158,6 +158,7 @@ NB_MODULE(_lightrat, m) {
   m.doc() = LIGHTRAT_DESCRIPTION;
 #ifdef LIGHTRAT_VERSION_STRING
   m.attr("__version__") = LIGHTRAT_VERSION_STRING;
+  m.attr("__status_string__") = lightrat_status_string;
 #else
 #error "LIGHTRAT_VERSION_STRING is not defined"
 #endif
