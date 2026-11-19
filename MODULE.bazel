@@ -22,7 +22,7 @@ bazel_dep(name = "platforms", version = "1.1.0")
 bazel_dep(name = "gmp", version = "6.3.0.bcr.4")
 
 # rules_python for building python targets
-bazel_dep(name = "rules_python", version = "2.4.6")
+bazel_dep(name = "rules_python", version = "2.5.1")
 
 # nanobind for binding C++ and Python
 bazel_dep(name = "nanobind_bazel", version = "3.1.0.bcr.1")
