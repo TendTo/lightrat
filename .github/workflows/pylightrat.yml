@@ -36,6 +36,7 @@ jobs:
           done
 
   build:
+    if: github.ref_type == 'tag'
     runs-on: ${{ matrix.os }}
     needs: test
     strategy:

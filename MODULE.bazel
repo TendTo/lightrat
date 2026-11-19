@@ -83,7 +83,7 @@ use_repo(
     "python_versions",
 )
 
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip", dev_dependency = True)
 
 [
     pip.parse(
@@ -94,4 +94,4 @@ pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
     for v in PYTHON_VERSIONS
 ]
 
-use_repo(pip, "pypi")
+use_repo(pip, "lightrat_pypi")

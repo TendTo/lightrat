@@ -39,6 +39,7 @@ py_binary(
     name = "lightrat",
     srcs = ["__main__.py"],
     imports = [".."],
+    legacy_create_init = False,
     main = "__main__.py",
     python_version = "PY3",
     visibility = ["//visibility:public"],

@@ -19,7 +19,7 @@ def pytest_test(name, srcs, deps = [], args = [], **kwargs):
         args = ["--capture=no"] + args + ["$(location :%s)" % x for x in srcs],
         python_version = "PY3",
         srcs_version = "PY3",
-        deps = deps + ["@pypi//pytest"],
+        deps = deps + ["@lightrat_pypi//pytest"],
         **kwargs
     )
 
